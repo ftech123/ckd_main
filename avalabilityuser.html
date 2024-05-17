@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor's Prescription</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .contact-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .input-box {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .message-box {
+            width: calc(100% - 16px);
+            height: 100px;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+        .submit-button {
+            width: 100%;
+            padding: 10px 0;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #007bff;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+        .bottom-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .bottom-nav a i {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+    </style>
+    <!-- Include Tailwind CSS -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4" style="margin-top: 20%;">
+        <h1>Doctor's Availability</h1>
+        <div id="messageContainer" style="text-align: center;"></div>
+        <div class="availability">
+            <!-- <select id="doctorDropdown" class="input-box">
+                <option>Select Doctor</option>
+            </select> -->
+            <select id="doctorDropdowna" class="input-box">
+                <option>Select Doctor</option>
+            </select>
+
+            <!-- <input type="date" id="availabilityDay" class="input-box" placeholder="Day"> -->
+            <!-- <input type="time" id="availabilityTime" class="input-box" placeholder="Time"> -->
+            <div class="flex flex-col space-y-4">
+                <!-- <button onclick="saveAvailability()" class="btn bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">Save Availability</button> -->
+                <!-- <button onclick="getAvailability()" class="btn bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">Get Availability</button> -->
+                <button onclick="getAvailabilitya()" class="btn bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">Get Availability Doctors</button>
+                <!-- <button onclick="displayDoctorAvailability()" class="btn bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">Display Doctor Availability</button> -->
+                <!-- <button onclick="updateAvailability()" class="btn bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">Update Availability</button> -->
+                <!-- <button onclick="removeAvailability()" class="btn bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">Remove Availability</button> -->
+            </div>
+        </div>
+    </div>  
+    <div class="bottom-nav">
+        <a href="contact.html">
+            <i class="fas fa-user-friends"></i>
+            Contacts
+        </a>
+        <a href="viewMessage.html">
+            <i class="fas fa-envelope"></i>
+            Messages
+        </a>
+        <a href="ckd.html">
+            <i class="fas fa-user-friends"></i>
+            Value
+        </a>
+        <a href="csv_ana.html">
+            <i class="fas fa-user-friends"></i>
+            CSV
+        </a>
+        <a href="viewPricption.html">
+            <i class="fas fa-prescription"></i>
+            Prescriptions
+        </a>
+        <a href="avalabilityuser.html">
+            <i class="fas fa-calendar"></i>
+            Avalability
+        </a>
+        <a href="patient_add_details.html">
+            <i class="fas fa-male"></i>
+            Add Details
+        </a>
+        <a href="Logout.html" class="px-4" style="background-color: red;padding: 1%;">Logout</a>
+    </div>
+    <!-- Firebase JavaScript SDK -->
+    <!-- Firebase JavaScript SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="avalability.js"></script>
+</body>
+</html>

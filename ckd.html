@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronic Kidney Disease Detector</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    h2 {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .contact-form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .input-box {
+        width: calc(100% - 16px);
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    .submit-button {
+        width: 100%;
+        padding: 10px 0;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .medical-report {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #myChart {
+        margin-top: 30px;
+    }
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #007bff;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+    }
+    .bottom-nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .bottom-nav a i {
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h2>Chronic Kidney Disease Detector</h2>
+        <div id="messageContainer" style="text-align: center;"></div>
+        <form id="ckdForm" class="contact-form">
+            <input type="number" id="age" name="age" placeholder="Enter Patient Age..." class="input-box">
+            <select id="gender" name="gender" class="input-box" placeholder="Select patient gender...">
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+            </select>
+            <input type="number" id="creatinine_levels" name="creatinine_levels" placeholder="Enter Creatinine Levels value..." class="input-box" min="0" step="0.1">
+            <input type="number" id="egfr" name="egfr" placeholder="Enter Estimated Glomerular Filtration rate..." class="input-box" min="0" max="120">
+            <input type="number" id="bun" name="bun" placeholder="Enter Blood Urea Nitrogen value..." class="input-box" min="0">
+            <input type="number" id="al" name="al" placeholder="Enter Albumin ratio..." class="input-box" min="0">
+            <input type="number" id="diabetis" name="diabetis" placeholder="Enter Diabetes..." class="input-box" min="0">
+            <button type="button" onclick="detectCKD()" class="submit-button">Detect CKD</button>
+        </form>
+
+        <div id="medicalReport" class="medical-report"></div>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <br><br><br><br>
+    <div class="bottom-nav">
+        <a href="contact.html">
+            <i class="fas fa-user-friends"></i>
+            Contacts
+        </a>
+        <a href="viewMessage.html">
+            <i class="fas fa-envelope"></i>
+            Messages
+        </a>
+        <a href="ckd.html">
+            <i class="fas fa-user-friends"></i>
+            Value
+        </a>
+        <a href="csv_ana.html">
+            <i class="fas fa-user-friends"></i>
+            CSV
+        </a>
+        <a href="viewPricption.html">
+            <i class="fas fa-prescription"></i>
+            Prescriptions
+        </a>
+        <a href="avalabilityuser.html">
+            <i class="fas fa-calendar"></i>
+            Avalability
+        </a>
+        <a href="patient_add_details.html">
+            <i class="fas fa-male"></i>
+            Add Details
+        </a>
+        <a href="Logout.html" class="px-4" style="background-color: red;padding: 1%;">Logout</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function detectCKD() {
+            // Get input values
+            var age = parseFloat(document.getElementById('age').value);
+            var gender = document.getElementById('gender').value;
+            var creatinine_levels = parseFloat(document.getElementById('creatinine_levels').value);
+            var egfr = parseFloat(document.getElementById('egfr').value);
+            var bun = parseFloat(document.getElementById('bun').value);
+            var al = parseFloat(document.getElementById('al').value);
+            var diabetis = parseFloat(document.getElementById('diabetis').value);
+
+            var bpCategory;
+            var foodRecommendation;
+            var medicineRecommendation;
+            var exerciseRecommendation;
+            var doctorRecommendation;
+
+            if (age < 25 && age > 20 && creatinine_levels < 2.5 && creatinine_levels > 0.5 && egfr < 120 && egfr > 90 && bun < 11.5 && bun > 5 && al < 300 && al > 250 && diabetis < 60 && diabetis > 80) {
+                bpCategory = "Early detection of Chronic Kidney Disease";
+                foodRecommendation = "Follow a low-sodium, low-protein diet. Increase intake of fruits and vegetables.";
+                medicineRecommendation = "Consult a healthcare provider for appropriate medications to manage blood pressure.";
+                exerciseRecommendation = "Engage in regular physical activity like walking, swimming, or cycling.";
+                doctorRecommendation = "Dr Patil: KLE Belgaum - 8520147963 - 10:00am - 06:00pm";
+            } else if (egfr >= 90) {
+                bpCategory = "Stage 1 Mild Kidney Damage : Kidney works as well as normal";
+                foodRecommendation = "Limit salt intake. Include more whole grains, fruits, and vegetables in your diet.";
+                medicineRecommendation = "Medication may be prescribed by a doctor to lower blood pressure if lifestyle changes are insufficient.";
+                exerciseRecommendation = "Aim for at least 30 minutes of moderate-intensity exercise most days of the week.";
+                doctorRecommendation = "Dr Patil: KLE Belgaum - 8520147963 - 10:00am - 06:00pm";
+            } else if (egfr >= 60) {
+                bpCategory = "Stage 2 Mild Kidney Damage : Kidney Still Works well";
+                foodRecommendation = "Adopt the DASH (Dietary Approaches to Stop Hypertension) diet. Reduce saturated fats and cholesterol.";
+                medicineRecommendation = "Medications are often required to manage blood pressure effectively. Consult a healthcare provider.";
+                exerciseRecommendation = "Incorporate aerobic exercise, such as brisk walking or jogging, for at least 30 minutes a day.";
+                doctorRecommendation = "Dr Patil: KLE Belgaum - 8520147963 - 10:00am - 06:00pm";
+            } else if (egfr >= 45) {
+                bpCategory = "Stage 3a Moderate Kidney Damage";
+                foodRecommendation = "Focus on a heart-healthy diet, including lean proteins, whole grains, and plenty of fruits and vegetables.";
+                medicineRecommendation = "Medications are essential for controlling blood pressure at this stage. Regular monitoring is crucial.";
+                exerciseRecommendation  = "Engage in moderate aerobic activity for at least 30 minutes most days of the week.";
+                doctorRecommendation = "Dr Patil: KLE Belgaum - 8520147963 - 10:00am - 06:00pm";
+            } else if (egfr >= 30) {
+                bpCategory = "Stage 3b Moderate to Severe Kidney Damage";
+                foodRecommendation = "Focus on a heart-healthy diet, including lean proteins, whole grains, and plenty of fruits and vegetables.";
+                medicineRecommendation = "Medications are essential for controlling blood pressure at this stage. Regular monitoring is crucial.";
+                exerciseRecommendation = "Engage in moderate aerobic activity for at least 30 minutes most days of the week.";
+                doctorRecommendation = "Dr Patil: KLE Belgaum - 8520147963 - 10:00am - 06:00pm";
+            } else if (egfr >= 15) {
+                bpCategory = "Stage 4 Severe Kidney Damage - Kidneys are close to not working properly";
+                foodRecommendation = "Limit sodium intake to less than 1,500 mg per day. Increase potassium-rich foods like bananas and sweet potatoes.";
+                medicineRecommendation = "Multiple medications may be required to lower blood pressure effectively. Consult a specialist.";
+                exerciseRecommendation = "Engage in regular aerobic exercise, such as walking or cycling, for at least 30 minutes most days of the week.";
+                doctorRecommendation = "Dr Patil: KLE Belgaum - 8520147963 - 10:00am - 06:00pm";
+            } else {
+                bpCategory = "Stage 5 Most Severe Kidney Damage";
+                foodRecommendation = "Follow a heart-healthy diet low in sodium and saturated fats. Monitor fluid intake.";
+                medicineRecommendation = "Aggressive treatment with multiple medications may be necessary. Seek immediate medical attention.";
+                exerciseRecommendation = "Low-impact exercises like swimming or gentle yoga may be suitable. Consult a healthcare provider.";
+                doctorRecommendation = "Dr Patil: KLE Belgaum - 8520147963 - 10:00am - 06:00pm";
+            }
+
+            // Update the medical report
+            var medicalReport = "<h3>Medical Report</h3><hr>";
+            medicalReport += "<p><strong>Blood Pressure:</strong> " + bpCategory + "</p>";
+            medicalReport += "<p><strong>Food Recommendation:</strong> " + foodRecommendation + "</p>";
+            medicalReport += "<p><strong>Medicine Recommendation:</strong> " + medicineRecommendation + "</p>";
+            medicalReport += "<p><strong>Exercise Recommendation:</strong> " + exerciseRecommendation + "</p>";
+            medicalReport += "<p><strong>Doctor Recommendation:</strong> " + doctorRecommendation + "</p>";
+            document.getElementById('medicalReport').innerHTML = medicalReport;
+
+            // Chart data
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var data = {
+                labels: ['Accuracy', 'Recall', 'F1Score', 'Loss Score'],
+                datasets: [{
+                    label: 'Recommendations Length',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    data: [foodRecommendation.length, medicineRecommendation.length, exerciseRecommendation.length, doctorRecommendation.length]
+                }]
+            };
+            var options = {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            };
+            new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: options
+            });
+        }
+    </script>
+</body>
+</html>
+
